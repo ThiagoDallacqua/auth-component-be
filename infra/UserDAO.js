@@ -5,10 +5,11 @@ class UserDAO {
   }
 
   register(args, callback) {
-    const { email, name, surname, password} = args
+    console.log(args)
+    const { email, password } = args
     this._connect();
 
-    this._User.register(new this._User({ email, name, surname}), password, callback)
+    this._User.register(new this._User({ email }), password, callback)
   }
 }
 

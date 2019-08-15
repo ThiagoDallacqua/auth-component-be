@@ -2,26 +2,25 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: String,
-  surname: String,
+  username: String,
   email: String,
   password: String
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: 'email'});
 
-UserSchema.statics.findOrCreate = ({ email, name, surname }, callback) => {
+UserSchema.statics.findOrCreate = ({ email, username }, callback) => {
   return this.findOne({
-    email: email
+    email: email,
+    username: username,
   }, (err, user) => {
     if (err) {
       return callback(err);
     }
     if (!user) {
       user = new User({
-        name,
-        surname,
-        email
+        email,
+        username
       });
       user.save((err) => {
         if (err) console.log(err);
